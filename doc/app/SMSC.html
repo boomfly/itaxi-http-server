@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class SMSC - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-_server_connect">#_server_connect</a>
+    
+    <li ><a href="#method-i-_smsc_send_cmd">#_smsc_send_cmd</a>
+    
+    <li ><a href="#method-i-_urlencode">#_urlencode</a>
+    
+    <li ><a href="#method-i-get_balance">#get_balance</a>
+    
+    <li ><a href="#method-i-get_sms_cost">#get_sms_cost</a>
+    
+    <li ><a href="#method-i-get_status">#get_status</a>
+    
+    <li ><a href="#method-i-send_sms">#send_sms</a>
+    
+    <li ><a href="#method-i-send_sms_mail">#send_sms_mail</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-SMSC">
+  <h1 id="class-SMSC" class="class">
+    class SMSC
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="SMSC_CHARSET">SMSC_CHARSET
+        
+        <dd>
+        
+      
+        <dt id="SMSC_DEBUG">SMSC_DEBUG
+        
+        <dd>
+        
+      
+        <dt id="SMSC_HTTPS">SMSC_HTTPS
+        
+        <dd>
+        
+      
+        <dt id="SMSC_LOGIN">SMSC_LOGIN
+        
+        <dd><p>Константы для настройки библиотеки</p>
+        
+      
+        <dt id="SMSC_PASSWORD">SMSC_PASSWORD
+        
+        <dd>
+        
+      
+        <dt id="SMSC_POST">SMSC_POST
+        
+        <dd>
+        
+      
+        <dt id="SMTP_FROM">SMTP_FROM
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-_server_connect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">_server_connect</span><span
+            class="method-args">(uri)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Подключение к серверу</p>
+          
+          
+
+          
+          <div class="method-source-code" id="_server_connect-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 207</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">_server_connect</span>(<span class="ruby-identifier">uri</span>)
+        <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
+
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_HTTPS</span>
+                <span class="ruby-identifier">http</span>.<span class="ruby-identifier">use_ssl</span> = <span class="ruby-keyword">true</span>
+                <span class="ruby-identifier">http</span>.<span class="ruby-identifier">verify_mode</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">VERIFY_NONE</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">http</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-_smsc_send_cmd" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">_smsc_send_cmd</span><span
+            class="method-args">(cmd, arg = "")</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Функция вызова запроса. Формирует URL и делает 3 попытки чтения</p>
+          
+          
+
+          
+          <div class="method-source-code" id="_smsc_send_cmd-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">_smsc_send_cmd</span>(<span class="ruby-identifier">cmd</span>, <span class="ruby-identifier">arg</span> = <span class="ruby-string">&quot;&quot;</span>)
+        <span class="ruby-identifier">url</span> = (<span class="ruby-constant">SMSC_HTTPS</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;https&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;http&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;://smsc.kz/sys/#{cmd}&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.php?login=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-constant">SMSC_LOGIN</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&amp;psw=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-constant">SMSC_PASSWORD</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;&amp;fmt=1&amp;charset=#{SMSC_CHARSET}&amp;#{arg}&quot;</span>
+
+        <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
+        <span class="ruby-identifier">http</span> = <span class="ruby-identifier">_server_connect</span>(<span class="ruby-identifier">uri</span>)
+
+        <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">sleep</span>(<span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span>
+
+                <span class="ruby-keyword">if</span> (<span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>)
+                        <span class="ruby-identifier">url</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-string">&quot;://smsc.kz/&quot;</span>, <span class="ruby-string">&quot;://www2.smsc.kz/&quot;</span>)
+
+                        <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
+                        <span class="ruby-identifier">http</span> = <span class="ruby-identifier">_server_connect</span>(<span class="ruby-identifier">uri</span>)
+                <span class="ruby-keyword">end</span>
+
+                <span class="ruby-keyword">begin</span>
+                        <span class="ruby-identifier">r</span> = (<span class="ruby-constant">SMSC_POST</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">2000</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">http</span>.<span class="ruby-identifier">post2</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">query</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get2</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;?&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">query</span>)
+                        <span class="ruby-identifier">ret</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">body</span>
+                <span class="ruby-keyword">rescue</span>
+                        <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;&quot;</span>
+                <span class="ruby-keyword">end</span>
+                
+                <span class="ruby-identifier">i</span><span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+        <span class="ruby-keyword">end</span> <span class="ruby-keyword">until</span> <span class="ruby-identifier">ret</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">ret</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Ошибка чтения адреса: #{url}\n&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_DEBUG</span>
+                
+                <span class="ruby-identifier">ret</span> = <span class="ruby-string">&quot;0,0&quot;</span> <span class="ruby-comment"># фиктивный ответ</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">ret</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-_urlencode" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">_urlencode</span><span
+            class="method-args">(str)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>кодирование параметра в http-запросе</p>
+          
+          
+
+          
+          <div class="method-source-code" id="_urlencode-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">str</span>)
+        <span class="ruby-constant">ERB</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">url_encode</span>(<span class="ruby-identifier">str</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_balance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_balance</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Функция получения баланса</p>
+
+<p>без параметров</p>
+
+<p>возвращает баланс в виде строки или false в случае ошибки</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_balance-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_balance</span>
+        <span class="ruby-identifier">m</span> = <span class="ruby-identifier">_smsc_send_cmd</span>(<span class="ruby-string">&quot;balance&quot;</span>) <span class="ruby-comment"># (balance) или (0, -error)</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_DEBUG</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Сумма на счете: #{m[0]}\n&quot;</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Ошибка №#{m[1][1]}\n&quot;</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">2</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_sms_cost" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_sms_cost</span><span
+            class="method-args">(phones, message, translit = 0, format = 0, sender = false, query = "")</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Функция получения стоимости SMS</p>
+
+<p>обязательные параметры:</p>
+
+<p>phones - список телефонов через запятую или точку с запятой message -
+отправляемое сообщение</p>
+
+<p>необязательные параметры:</p>
+
+<p>translit - переводить или нет в транслит (1,2 или 0) format - формат
+сообщения (0 - обычное sms, 1 - flash-sms, 2 - wap-push, 3 - hlr, 4 - bin,
+5 - bin-hex, 6 - ping-sms, 7 - mms, 8 - mail) sender - имя отправителя
+(Sender ID) query - строка дополнительных параметров, добавляемая в
+URL-запрос (“list=79999999999:Ваш пароль: 123n78888888888:Ваш пароль: 456”)</p>
+
+<p>возвращает массив (&lt;стоимость&gt;, &lt;количество sms&gt;) либо массив
+(0, -&lt;код ошибки&gt;) в случае ошибки</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_sms_cost-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_sms_cost</span>(<span class="ruby-identifier">phones</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">translit</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">format</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">sender</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">query</span> = <span class="ruby-string">&quot;&quot;</span>)
+        <span class="ruby-identifier">formats</span> = [<span class="ruby-string">&quot;flash=1&quot;</span>, <span class="ruby-string">&quot;push=1&quot;</span>, <span class="ruby-string">&quot;hlr=1&quot;</span>, <span class="ruby-string">&quot;bin=1&quot;</span>, <span class="ruby-string">&quot;bin=2&quot;</span>, <span class="ruby-string">&quot;ping=1&quot;</span>, <span class="ruby-string">&quot;mms=1&quot;</span>, <span class="ruby-string">&quot;mail=1&quot;</span>]
+
+        <span class="ruby-identifier">m</span> = <span class="ruby-identifier">_smsc_send_cmd</span>(<span class="ruby-string">&quot;send&quot;</span>, <span class="ruby-string">&quot;cost=1&amp;phones=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">phones</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&amp;mes=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">message</span>) <span class="ruby-operator">+</span>
+                                        <span class="ruby-node">&quot;&amp;translit=#{translit}&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">format</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;&amp;#{formats[format-1]}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-operator">+</span>
+                                        (<span class="ruby-identifier">sender</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&amp;sender=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">sender</span>)) <span class="ruby-operator">+</span>
+                                        (<span class="ruby-identifier">query</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;&amp;#{query}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>))
+
+        <span class="ruby-comment"># (cost, cnt) или (0, -error)</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_DEBUG</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;0&quot;</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Стоимость рассылки: #{m[0]}. Всего SMS: #{m[1]}\n&quot;</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Ошибка №#{m[1][1]}\n&quot;</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">m</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_status</span><span
+            class="method-args">(id, phone, all = 0)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Функция проверки статуса отправленного SMS или HLR-запроса</p>
+
+<p>id - ID cообщения phone - номер телефона</p>
+
+<p>возвращает массив: для отправленного SMS (&lt;статус&gt;, &lt;время
+изменения&gt;, &lt;код ошибки sms&gt;) для HLR-запроса (&lt;статус&gt;,
+&lt;время изменения&gt;, &lt;код ошибки sms&gt;, &lt;код IMSI
+SIM-карты&gt;, &lt;номер сервис-центра&gt;, &lt;код страны регистрации&gt;,
+&lt;код оператора абонента&gt;, &lt;название страны регистрации&gt;,
+&lt;название оператора абонента&gt;, &lt;название роуминговой страны&gt;,
+&lt;название роумингового оператора&gt;)</p>
+
+<p>При all = 1 дополнительно возвращаются элементы в конце массива: (&lt;время
+отправки&gt;, &lt;номер телефона&gt;, &lt;стоимость&gt;, &lt;sender id&gt;,
+&lt;название статуса&gt;, &lt;текст сообщения&gt;)</p>
+
+<p>либо массив (0, -&lt;код ошибки&gt;) в случае ошибки</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_status-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_status</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">phone</span>, <span class="ruby-identifier">all</span> = <span class="ruby-value">0</span>)
+        <span class="ruby-identifier">m</span> = <span class="ruby-identifier">_smsc_send_cmd</span>(<span class="ruby-string">&quot;status&quot;</span>, <span class="ruby-string">&quot;phone=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">phone</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;&amp;id=#{id}&amp;all=#{all}&quot;</span>)
+
+        <span class="ruby-comment"># (status, time, err, ...) или (0, -error)</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_DEBUG</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-string">&quot;0&quot;</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Статус SMS = #{m[0]}&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;, время изменения статуса - &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%d.%m.%Y %T&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Ошибка №#{m[1][1]}\n&quot;</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">all</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">9</span> <span class="ruby-operator">&amp;&amp;</span> ((<span class="ruby-keyword">defined?</span>(<span class="ruby-identifier">m</span>[<span class="ruby-value">14</span>])).<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">14</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;HLR&quot;</span>)
+                <span class="ruby-identifier">m</span> = (<span class="ruby-identifier">m</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;,&quot;</span>)).<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>, <span class="ruby-value">9</span>)
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">m</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-send_sms" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_sms</span><span
+            class="method-args">(phones, message, translit = 0, time = 0, id = 0, format = 0, sender = false, query = "")</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Функция отправки SMS</p>
+
+<p>обязательные параметры:</p>
+
+<p>phones - список телефонов через запятую или точку с запятой message -
+отправляемое сообщение</p>
+
+<p>необязательные параметры:</p>
+
+<p>translit - переводить или нет в транслит (1,2 или 0) time - необходимое
+время доставки в виде строки (DDMMYYhhmm, h1-h2, 0ts, +m) id -
+идентификатор сообщения. Представляет собой 32-битное число в диапазоне от
+1 до 2147483647. format - формат сообщения (0 - обычное sms, 1 - flash-sms,
+2 - wap-push, 3 - hlr, 4 - bin, 5 - bin-hex, 6 - ping-sms, 7 - mms, 8 -
+mail) sender - имя отправителя (Sender ID). Для отключения Sender ID по
+умолчанию необходимо в качестве имени передать пустую строку или точку.
+query - строка дополнительных параметров, добавляемая в URL-запрос
+(“valid=01:00&amp;maxsms=3&amp;tz=2”)</p>
+
+<p>возвращает массив (&lt;id&gt;, &lt;количество sms&gt;, &lt;стоимость&gt;,
+&lt;баланс&gt;) в случае успешной отправки либо массив (&lt;id&gt;,
+-&lt;код ошибки&gt;) в случае ошибки</p>
+          
+          
+
+          
+          <div class="method-source-code" id="send_sms-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_sms</span>(<span class="ruby-identifier">phones</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">translit</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">id</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">format</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">sender</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">query</span> = <span class="ruby-string">&quot;&quot;</span>)
+        <span class="ruby-identifier">formats</span> = [<span class="ruby-string">&quot;flash=1&quot;</span>, <span class="ruby-string">&quot;push=1&quot;</span>, <span class="ruby-string">&quot;hlr=1&quot;</span>, <span class="ruby-string">&quot;bin=1&quot;</span>, <span class="ruby-string">&quot;bin=2&quot;</span>, <span class="ruby-string">&quot;ping=1&quot;</span>, <span class="ruby-string">&quot;mms=1&quot;</span>, <span class="ruby-string">&quot;mail=1&quot;</span>]
+
+        <span class="ruby-identifier">m</span> = <span class="ruby-identifier">_smsc_send_cmd</span>(<span class="ruby-string">&quot;send&quot;</span>, <span class="ruby-string">&quot;cost=3&amp;phones=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">phones</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;&amp;mes=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">message</span>) <span class="ruby-operator">+</span>
+                                        <span class="ruby-node">&quot;&amp;translit=#{translit}&amp;id=#{id}&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">format</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;&amp;#{formats[format-1]}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-operator">+</span>
+                                        (<span class="ruby-identifier">sender</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&amp;sender=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">sender</span>)) <span class="ruby-operator">+</span>
+                                        (<span class="ruby-identifier">time</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;&amp;time=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">_urlencode</span>(<span class="ruby-identifier">time</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">query</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;&amp;#{query}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>))
+
+        <span class="ruby-comment"># (id, cnt, cost, balance) или (id, -error)</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-constant">SMSC_DEBUG</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;0&quot;</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Сообщение отправлено успешно. ID: #{m[0]}, всего SMS: #{m[1]}, стоимость: #{m[2]}, баланс: #{m[3]}\n&quot;</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Ошибка №#{m[1][1]}&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;0&quot;</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;, ID: #{m[0]}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span>;
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">m</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-send_sms_mail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">send_sms_mail</span><span
+            class="method-args">(phones, message, translit = 0, time = 0, id = 0, format = 0, sender = "")</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>SMTP версия функции отправки SMS</p>
+          
+          
+
+          
+          <div class="method-source-code" id="send_sms_mail-source">
+            <pre><span class="ruby-comment"># File lib/smsc_api.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_sms_mail</span>(<span class="ruby-identifier">phones</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">translit</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">time</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">id</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">format</span> = <span class="ruby-value">0</span>, <span class="ruby-identifier">sender</span> = <span class="ruby-string">&quot;&quot;</span>)
+        <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword">nil</span>
+
+        <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">SMTP</span>.<span class="ruby-identifier">start</span>(<span class="ruby-string">&quot;send.smsc.kz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">smtp</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">smtp</span>.<span class="ruby-identifier">send_message</span>(<span class="ruby-node">&quot;Content-Type: text/plain; charset=#{SMSC_CHARSET}\n\n#{SMSC_LOGIN}:#{SMSC_PASSWORD}:#{id}:#{time}:#{translit},#{format},#{sender}:#{phones}:#{message}&quot;</span>, <span class="ruby-constant">SMTP_FROM</span>, <span class="ruby-string">&quot;send@send.smsc.kz&quot;</span>)
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
